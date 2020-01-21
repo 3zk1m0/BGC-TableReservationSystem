@@ -1,4 +1,4 @@
-### MERN Boilerplate on Docker
+### TableResSys
 
 ## Usage instructions
    1. git clone https://gitlab.com/Webdevpeter/docker-mern-boilerplate.git
