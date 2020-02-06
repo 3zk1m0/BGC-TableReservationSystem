@@ -1,0 +1,55 @@
+#tables {
+    width: 100%;
+    border: 5px solid black;
+}
+
+.table {
+    border: 2px solid black;
+    text-align: center;
+    user-select: none;
+}
+
+#table1 {
+    width: 20px;
+    height: 20px;
+}
+
+#table2 {
+    width: 20px;
+    height: 20px;
+}
+
+#table3 {
+    width: 30px;
+    height: 60px;
+}
+
+#table4 {
+    width: 30px;
+    height: 60px;
+}
+
+#table5 {
+    width: 30px;
+    height: 60px;
+}
+
+#table6 {
+    width: 30px;
+    height: 60px;
+}
+
+#table7 {
+    width: 30px;
+    height: 70px;
+}
+
+#table8 {
+    width: 40px;
+    height: 30px;
+}
+
+#table9 {
+    width: 40px;
+    height: 30px;
+}
