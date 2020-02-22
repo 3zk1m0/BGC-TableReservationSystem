@@ -2,9 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 //Custom imports.
-import {
-  cache
-} from "./numberFields"
 
 const MOCK_DATABASE = {
     "tables": {

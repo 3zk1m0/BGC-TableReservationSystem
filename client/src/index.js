@@ -1,64 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
+import Heads from "./components/Heads";
+import Strangers from "./components/Strangers";
+import Time from "./components/Time"
+import Tables from "./components/Tables"
 
-//Custom imports.
-import {
-  cache, onHeadsInput, onStrangersInput, onDurationInput, onAddHeadsPress, onRemoveHeadsPress, onAddStrangersPress,
-  onRemoveStrangersPress, onAddDurationPress, onRemoveDurationPress
-} from "./numberFields"
 
-import {
-  onTimeBackwardPress, onTimeForwardPress
-} from "./timeFields"
-
-import {
-  Tables
-} from "./tableScripts"
 
 const App = () => {
+
+  const [allReseverations, setallReseverations] = useState([])
+  const [newReservation, setNewReservation] = useState({ Date: undefined, Time: undefined, Name: undefined, Heads: 0, Strangers: 0, Table: undefined, Duration: 0})
+  console.log("Poop");
+  
   return (
     <>
-     <Heads />
-     <Strangers />
-     <Time />
-     <Tables />
+     <Heads 
+      newReservation={newReservation}
+      setNewReservation={setNewReservation}
+     />
+     <Strangers 
+      newReservation={newReservation}
+      setNewReservation={setNewReservation}
+     />
+     <Time 
+        newReservation={newReservation}
+        setNewReservation={setNewReservation}
+     />
+     <Tables 
+        newReservation={newReservation}
+        setNewReservation={setNewReservation}
+     />
     </>
-  )
-}
-
-const Heads = () => {
-  return (
-    <p>
-      Heads: <input type="text" id="heads" defaultValue={cache.heads} onInput={onHeadsInput}></input>
-      <button type="button" onClick={onAddHeadsPress}>+</button>
-      <button type="button" onClick={onRemoveHeadsPress}>-</button>
-    </p>
-  )
-}
-
-const Strangers = () => {
-  return (
-    <p>
-      Strangers: <input type="text" id="strangers" defaultValue={cache.strangers} onInput={onStrangersInput}></input>
-      <button type="button" onClick={onAddStrangersPress}>+</button>
-      <button type="button" onClick={onRemoveStrangersPress}>-</button>
-    </p>
-  )
-}
-
-const Time = () => {
-  return (  
-    <p>
-      <input type="date"></input>
-      Start time:
-      <button type="button" onClick={onTimeBackwardPress}>&lt;</button>
-      <input type="text" id="time" defaultValue="12:00" readOnly></input>
-      <button type="button" onClick={onTimeForwardPress}>&gt;</button>
-            
-      Duration: <input type="text" id="duration" defaultValue={cache.duration} onInput={onDurationInput}></input>
-      <button type="button" onClick={onAddDurationPress}>+</button>
-      <button type="button" onClick={onRemoveDurationPress}>-</button>
-    </p>
   )
 }
 
