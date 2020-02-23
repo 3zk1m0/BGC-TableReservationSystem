@@ -4,10 +4,13 @@ const Heads = ({ newReservation, setNewReservation }) => {
 
 
     const handleAddHead = () => {
-        setNewReservation({...newReservation, Heads: Heads + 1})
+      const newHeads = newReservation.Heads + 1
+
+        setNewReservation({...newReservation, Heads: newHeads})
     }
     const handleRemoveHead = () => {
-        setNewReservation({...newReservation, Heads: Heads - 1})
+        const newHeads = newReservation.Heads - 1
+        setNewReservation({...newReservation, Heads: newHeads})
     }
     
 
