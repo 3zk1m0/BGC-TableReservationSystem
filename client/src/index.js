@@ -1,64 +1,74 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
-
-//Custom imports.
 import {
-  cache, onHeadsInput, onStrangersInput, onDurationInput, onAddHeadsPress, onRemoveHeadsPress, onAddStrangersPress,
-  onRemoveStrangersPress, onAddDurationPress, onRemoveDurationPress
-} from "./numberFields"
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useHistory,
+  useLocation
+} from "react-router-dom";
 
-import {
-  onTimeBackwardPress, onTimeForwardPress
-} from "./timeFields"
+// page imports
+import LandingPage from "./Pages/Landingpage"
+import Reservations from "./Pages/Reservations"
+import Confirmation from "./Pages/Confirmation"
 
-import {
-  Tables
-} from "./tableScripts"
+
+
 
 const App = () => {
-  return (
-    <>
-     <Heads />
-     <Strangers />
-     <Time />
-     <Tables />
-    </>
-  )
-}
 
-const Heads = () => {
-  return (
-    <p>
-      Heads: <input type="text" id="heads" defaultValue={cache.heads} onInput={onHeadsInput}></input>
-      <button type="button" onClick={onAddHeadsPress}>+</button>
-      <button type="button" onClick={onRemoveHeadsPress}>-</button>
-    </p>
-  )
-}
+  const history = useHistory
+  const now = new Date()
 
-const Strangers = () => {
-  return (
-    <p>
-      Strangers: <input type="text" id="strangers" defaultValue={cache.strangers} onInput={onStrangersInput}></input>
-      <button type="button" onClick={onAddStrangersPress}>+</button>
-      <button type="button" onClick={onRemoveStrangersPress}>-</button>
-    </p>
-  )
-}
+  const minutes = (((now.getMinutes() + 7.5)/15 | 0) * 15) % 60; //Round off minutes to 15 minute intervals
+  now.setMinutes(minutes)
+  
+  const [allReseverations, setallReseverations] = useState([])
+  const [newReservation, setNewReservation] = useState({ startTime: now, endTime: undefined, Name: undefined, Heads: 0, Strangers: 0, Table: undefined, Duration: 0, Arrived: false}) //this is pushed into MongoBD when customer finishes their reservation
+  console.log(newReservation);
 
-const Time = () => {
-  return (  
-    <p>
-      <input type="date"></input>
-      Start time:
-      <button type="button" onClick={onTimeBackwardPress}>&lt;</button>
-      <input type="text" id="time" defaultValue="12:00" readOnly></input>
-      <button type="button" onClick={onTimeForwardPress}>&gt;</button>
-            
-      Duration: <input type="text" id="duration" defaultValue={cache.duration} onInput={onDurationInput}></input>
-      <button type="button" onClick={onAddDurationPress}>+</button>
-      <button type="button" onClick={onRemoveDurationPress}>-</button>
-    </p>
+  
+  return (
+    <Router>
+
+      {/* persistent components that need to remain on page despite the users current page (like a nav bar) can be placed here */}
+
+      <Switch >
+      <Route
+        exact={true}
+        path="/"
+        children={props => (
+          <LandingPage
+          history={history}
+          {...props}
+          />
+          )}
+        />
+      <Route
+        path="/reservations"
+        children={props => (
+          <Reservations
+          allReseverations={allReseverations}
+          newReservation={newReservation}
+          setNewReservation={setNewReservation}
+          {...props}
+          />
+          )}
+        />
+      <Route
+        path="/Confirmation"
+        children={props => (
+          <Confirmation
+            newReservation={newReservation}
+            history={history}
+            {...props}
+          />
+         )}
+       />
+      </Switch>
+    </Router>
   )
 }
 
