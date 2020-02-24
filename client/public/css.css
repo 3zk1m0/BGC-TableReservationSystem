@@ -1,6 +1,8 @@
 #tables {
     width: 100%;
     border: 5px solid black;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .table {
