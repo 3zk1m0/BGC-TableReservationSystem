@@ -1,14 +1,24 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
-import Heads from "./components/Heads";
-import Strangers from "./components/Strangers";
-import Time from "./components/Time"
-import Tables from "./components/Tables"
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useHistory,
+  useLocation
+} from "react-router-dom";
+
+// page imports
+import LandingPage from "./Pages/Landingpage"
+import Reservations from "./Pages/Reservations"
+
 
 
 
 const App = () => {
-
+  const history = useHistory
+  
   const now = new Date()
   const currentDate = now.getDate()
 
@@ -20,25 +30,33 @@ const App = () => {
   console.log(newReservation);
   
   return (
-    <>
-     <Heads 
-        newReservation={newReservation}
-        setNewReservation={setNewReservation}
-     />
-     <Strangers 
-        newReservation={newReservation}
-        setNewReservation={setNewReservation}
-     />
-     <Time 
-        newReservation={newReservation}
-        setNewReservation={setNewReservation}
-     />
-     <Tables 
-        allReseverations={allReseverations}
-        newReservation={newReservation}
-        setNewReservation={setNewReservation}
-     />
-    </>
+    <Router>
+      {/* persistant components that need to remain on page despite the users current page (like a nav bar) can be placed here */}
+      <Switch >
+      <Route
+        exact={true}
+        path="/"
+        children={props => (
+          <LandingPage
+          history={history}
+          {...props}
+          />
+          )}
+        />
+      <Route
+        exact={true}
+        path="/reservations"
+        children={props => (
+          <Reservations
+          allReseverations={allReseverations}
+          newReservation={newReservation}
+          setNewReservation={setNewReservation}
+          {...props}
+          />
+          )}
+        />
+      </Switch>
+    </Router>
   )
 }
 
