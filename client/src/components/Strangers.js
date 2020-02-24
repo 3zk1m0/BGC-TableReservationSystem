@@ -13,7 +13,7 @@ const Strangers = ( {newReservation, setNewReservation} ) => {
   }
     return (
       <p>
-        Strangers: <input type="text" id="strangers" defaultValue={newReservation.Strangers} onInput={null}></input>
+        Strangers: <input type="text" id="strangers" value={newReservation.Strangers} readOnly={true}></input>
         <button type="button" onClick={handleAddHead}>+</button>
         <button type="button" onClick={handleRemoveHead}>-</button>
       </p>

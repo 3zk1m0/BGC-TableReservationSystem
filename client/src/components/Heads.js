@@ -18,7 +18,7 @@ const Heads = ({ newReservation, setNewReservation }) => {
     return (
     <div>
       <p>
-        Heads: <input type="text" id="heads" defaultValue={newReservation.Heads} onInput={null}></input>
+        Heads: <input type="text" id="heads" value={newReservation.Heads} readOnly={true}></input>
         <button type="button" onClick={handleAddHead}>+</button> 
         <button type="button" onClick={handleRemoveHead}>-</button>
       </p>
