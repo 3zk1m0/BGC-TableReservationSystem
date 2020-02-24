@@ -49,13 +49,6 @@ const Tables = ({newReservation, setnewReservation}) => {
         )
     }
     
-    const Tables = () => {
-        return (
-            <div id="tables">
-                <RelevantTables />
-            </div>
-        )
-    }
     
     const RelevantTables = () => {
         /*const [clicks, setClicks] = useState({
@@ -73,7 +66,7 @@ const Tables = ({newReservation, setnewReservation}) => {
         /*
         Return the amount of players expected as well as the amount of strangers allowed.
         */
-        return newReservation.heads + newReservation.strangers
+        return newReservation.Heads + newReservation.Strangers
     }
     
     let getRelevantTableIds = () => {
@@ -97,8 +90,8 @@ const Tables = ({newReservation, setnewReservation}) => {
         return tableIds
     }
     return (
-        <div>
-            <h5>fancy image of tables</h5>
+        <div id="tables">
+            <RelevantTables />
         </div>
     )
 }
