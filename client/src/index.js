@@ -12,15 +12,15 @@ import {
 // page imports
 import LandingPage from "./Pages/Landingpage"
 import Reservations from "./Pages/Reservations"
+import Confirmation from "./Pages/Confirmation"
 
 
 
 
 const App = () => {
+
   const history = useHistory
-  
   const now = new Date()
-  const currentDate = now.getDate()
 
   const minutes = (((now.getMinutes() + 7.5)/15 | 0) * 15) % 60; //Round off minutes to 15 minute intervals
   now.setMinutes(minutes)
@@ -57,6 +57,16 @@ const App = () => {
           />
           )}
         />
+      <Route
+        path="/Confirmation"
+        children={props => (
+          <Confirmation
+            newReservation={newReservation}
+            history={history}
+            {...props}
+          />
+         )}
+       />
       </Switch>
     </Router>
   )

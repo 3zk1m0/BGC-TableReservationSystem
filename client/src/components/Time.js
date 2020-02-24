@@ -35,6 +35,10 @@ const Time = ({newReservation, setNewReservation}) => {
   }
   const handleDurationChange = (change) => {
 
+    if(duration + change < 0) {
+      alert("No ಠ_ಠ")
+      return
+    }
     setDuration(duration += change)
     if(!newReservation.endTime) {
       const year = newReservation.startTime.getFullYear()
