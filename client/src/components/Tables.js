@@ -1,4 +1,5 @@
 import React from 'react'
+import Table from "./Table"
 
 const MOCK_DATABASE = {
     "tables": {
@@ -40,15 +41,8 @@ const MOCK_DATABASE = {
         }
     }
 }
-const Tables = ({newReservation, setnewReservation}) => {
+const Tables = ({newReservation, setNewReservation}) => {
 
-    const Table = ({tableNumber}) => {
-        let elementId = `table${tableNumber}`
-        return (
-            <div id={elementId} className="table">{tableNumber}</div>
-        )
-    }
-    
     
     const RelevantTables = () => {
         /*const [clicks, setClicks] = useState({
@@ -58,7 +52,11 @@ const Tables = ({newReservation, setnewReservation}) => {
         let tables = getRelevantTableIds()
         
         return tables.map(table => {
-            return <Table tableNumber={table} />
+            return <Table 
+            key={table} 
+            newReservation={newReservation}
+            setNewReservation={setNewReservation}
+            tableNumber={table} />
         })
     }
     
