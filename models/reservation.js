@@ -2,13 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ReservationSchema = new Schema({
-    Date: Date,
-    Time: Date,
+    startTime: Date,
+    endTime: Date,
     Name: String,
     Heads: Number,
     Strangers: Number,
     Table: Number,
-    Duration: Number
+    Duration: Number,
+    Arrived: Boolean
 });
 
 const Reservation = mongoose.model('Reservation', ReservationSchema);
