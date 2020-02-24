@@ -28,10 +28,13 @@ const App = () => {
   const [allReseverations, setallReseverations] = useState([])
   const [newReservation, setNewReservation] = useState({ startTime: now, endTime: undefined, Name: undefined, Heads: 0, Strangers: 0, Table: undefined, Duration: 0, Arrived: false}) //this is pushed into MongoBD when customer finishes their reservation
   console.log(newReservation);
+
   
   return (
     <Router>
-      {/* persistant components that need to remain on page despite the users current page (like a nav bar) can be placed here */}
+
+      {/* persistent components that need to remain on page despite the users current page (like a nav bar) can be placed here */}
+
       <Switch >
       <Route
         exact={true}
@@ -44,7 +47,6 @@ const App = () => {
           )}
         />
       <Route
-        exact={true}
         path="/reservations"
         children={props => (
           <Reservations

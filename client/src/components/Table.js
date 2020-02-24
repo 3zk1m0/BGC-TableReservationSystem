@@ -2,9 +2,7 @@ import React from 'react'
 
 const Table = ({tableNumber, newReservation, setNewReservation, }) => {
 
-    let elementId = `table${tableNumber}`
-   
-
+    const elementId = `table${tableNumber}`
     const handleTableSelection = () => {
         console.log("clicked!")
         setNewReservation({...newReservation, Table: Number(tableNumber)})
