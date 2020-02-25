@@ -16,7 +16,11 @@ const Time = ({newReservation, setNewReservation}) => {
 
     const newDate = new Date(year, month, day, hour, minutes)
   
+    if(newDate instanceof Date && isFinite(newDate)) { // check whether the date input is a valid date object
     setNewReservation({...newReservation, startTime: newDate})
+    } else {
+      return
+    }
   
   }
 
