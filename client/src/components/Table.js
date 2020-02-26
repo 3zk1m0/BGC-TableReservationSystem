@@ -3,9 +3,15 @@ import React from 'react'
 const Table = ({tableNumber, newReservation, setNewReservation, }) => {
 
     const elementId = `table${tableNumber}`
+    
     const handleTableSelection = () => {
+        if(newReservation.Table === Number(tableNumber)) {
+            setNewReservation({...newReservation, Table: 0})
+        } else {
+            setNewReservation({...newReservation, Table: Number(tableNumber)})
+        }
         console.log("clicked!")
-        setNewReservation({...newReservation, Table: Number(tableNumber)})
+        
     }
 
     return (
