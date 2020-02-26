@@ -1,23 +1,24 @@
-import React, { useState } from 'react'
-
+import React, { useState, useEffect } from 'react'
+import moment from "moment"
 
 const Time = ({newReservation, setNewReservation}) => {
   
-  let [duration, setDuration] = useState(0)
+  let [duration, setDuration] = useState(60)
+
+  console.log(newReservation.startTime)
+  console.log(newReservation.endTime)
+
   const handleDateSelection = (event) => {
 
-    const date = new Date(event.target.value)
-    const year = date.getFullYear()
-    const month = date.getMonth()
-    const day = date.getDate()
+    const hour = newReservation.startTime.hour()
+    const minutes = newReservation.startTime.minute()
 
-    const hour = newReservation.startTime.getHours()
-    const minutes = newReservation.startTime.getMinutes()
-
-    const newDate = new Date(year, month, day, hour, minutes)
+    const newDate = moment(`${event.target.value} ${hour}:${minutes}`, "YYYY-MM-DD HH:mm")
+    const newEndDate = newDate.clone().add(duration, "minutes")
   
-    if(newDate instanceof Date && isFinite(newDate)) { // check whether the date input is a valid date object
-    setNewReservation({...newReservation, startTime: newDate})
+
+    if(newDate.isValid()) { // check whether the date input is a valid date object
+    setNewReservation({...newReservation, startTime: newDate, endTime: newEndDate})
     } else {
       return
     }
@@ -25,68 +26,51 @@ const Time = ({newReservation, setNewReservation}) => {
   }
 
   const handleChangeTime = (change) => {
-    const year = newReservation.startTime.getFullYear()
-    const month = newReservation.startTime.getMonth()
-    const day = newReservation.startTime.getDate()
-    const hour = newReservation.startTime.getHours()
-    const minutes = newReservation.startTime.getMinutes()
 
-    const newminutes = minutes + change
-    const newDate = new Date(year, month, day, hour, newminutes)
+    const newDate = newReservation.startTime.clone().add(change, 'm')
+    const newEndDate = newDate.clone().add(duration, "minutes")
+
+    setNewReservation({...newReservation, startTime: newDate, endTime: newEndDate})
   
-    setNewReservation({...newReservation, startTime: newDate})
-    console.log(newReservation)
   }
+  
   const handleDurationChange = (change) => {
 
-    if(duration + change < 0) {
-      alert("No ಠ_ಠ")
+    if(duration + change < 60) {
+      alert("Minimum visiting time is one hour")
       return
     }
+
     setDuration(duration += change)
-    if(!newReservation.endTime) {
-      const year = newReservation.startTime.getFullYear()
-      const month = newReservation.startTime.getMonth()
-      const day = newReservation.startTime.getDate()
-      const hour = newReservation.startTime.getHours()
-      const minutes = newReservation.startTime.getMinutes()
 
-      const newminutes = minutes + change
+      const newEndDate = newReservation.endTime.clone().add(change, "minutes")
 
-      const newDate = new Date(year, month, day, hour, newminutes)
-      setNewReservation({...newReservation, endTime: newDate})
-
-    } else {
-      const year = newReservation.endTime.getFullYear()
-      const month = newReservation.endTime.getMonth()
-      const day = newReservation.endTime.getDate()
-      const hour = newReservation.endTime.getHours()
-      const minutes = newReservation.endTime.getMinutes()
-
-      const newminutes = minutes + change
-
-      const newDate = new Date(year, month, day, hour, newminutes)
-      setNewReservation({...newReservation, endTime: newDate})
+      setNewReservation({...newReservation, endTime: newEndDate})
     }
-}
-
-
-
-
-
 
     return (  
-      <p>
-        <input type="date" onChange={handleDateSelection}></input>
+      <div className="Time">
+        <div>
+          Select Date
+          <input type="date" onChange={handleDateSelection}></input>
+        </div>
+        <div>
         Start time:
         <button type="button" onClick={() => handleChangeTime(-15)}>&lt;</button>
-        <input type="text" id="time" value={`${newReservation.startTime.getHours()}:${!newReservation.startTime.getMinutes() ? "00" : newReservation.startTime.getMinutes()}`} readOnly></input>
+        <input type="time" id="time" 
+        value={newReservation.startTime.format("HH:mm")} 
+        onChange={(e) => console.log(e.target.value)} 
+        min={undefined /* function to calculate opening time on selected day */ } 
+        max={undefined /* function to calculate closing time on selected day */ }>
+        </input>
         <button type="button" onClick={() => handleChangeTime(15)}>&gt;</button>
-              
+        </div>
+        <div>   
         Duration: <input type="text" id="duration" value={duration} readOnly onInput={null}></input>
         <button type="button" onClick={() => handleDurationChange(15)}>+</button>
         <button type="button" onClick={() => handleDurationChange(-15)}>-</button>
-      </p>
+        </div> 
+      </div>
     )
   }
 

@@ -8,6 +8,7 @@ import {
   useHistory,
   useLocation
 } from "react-router-dom";
+import moment from "moment"
 
 // page imports
 import LandingPage from "./Pages/Landingpage"
@@ -20,13 +21,16 @@ import Confirmation from "./Pages/Confirmation"
 const App = () => {
 
   const history = useHistory
-  const now = new Date()
+  const now = moment()
 
-  const minutes = (((now.getMinutes() + 7.5)/15 | 0) * 15) % 60; //Round off minutes to 15 minute intervals
-  now.setMinutes(minutes)
+  const minutes = (((now.minutes() + 7.5)/15 | 0) * 15) % 60; //Round off minutes to 15 minute intervals
+  now.minute(minutes)
+  
+  const calcEndDate = now.clone().add(1, "H")
+
   
   const [allReseverations, setallReseverations] = useState([])
-  const [newReservation, setNewReservation] = useState({ startTime: now, endTime: undefined, Name: undefined, Heads: 0, Strangers: 0, Table: undefined, Duration: 0, Arrived: false}) //this is pushed into MongoBD when customer finishes their reservation
+  const [newReservation, setNewReservation] = useState({ startTime: now, endTime: calcEndDate, Name: undefined, Heads: 0, Strangers: 0, Table: undefined, Duration: 0, Arrived: false}) //this is pushed into MongoBD when customer finishes their reservation
   console.log(newReservation);
 
   
