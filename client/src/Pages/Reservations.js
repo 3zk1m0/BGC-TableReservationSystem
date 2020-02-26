@@ -27,7 +27,21 @@ const Reservations = ({newReservation, setNewReservation, allReseverations, hist
                newReservation={newReservation}
                setNewReservation={setNewReservation}
             />
-            <button onClick={() => history.push("/confirmation")}>Finish reservation</button> {/* To go to the next page, push the page adress to history */}
+            <button onClick={() => {
+               
+               if(newReservation.Heads <= 0) {
+                  alert("please select at least one person")
+                  return
+               } else if (newReservation.startTime <= new Date() ){
+                  alert("please select a date in the future")
+                  return
+               } else if (!newReservation.Table){
+                  alert("please select a table")
+                  return
+               }
+
+               
+               history.push("/confirmation")}}>Finish reservation</button> {/* To go to the next page, push the page adress to history */}
 
         </>
     )
