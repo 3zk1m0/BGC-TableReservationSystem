@@ -88,8 +88,11 @@ const Tables = ({newReservation, setNewReservation}) => {
         return tableIds
     }
     return (
-        <div id="tables">
+        <div>
+            <div id="tables">
             <RelevantTables />
+            </div>
+            <h4 className={"Warning"} style={newReservation.Heads + newReservation.Strangers > 10 ?  { visibility:'visible'} : { visibility:'hidden'}}>For groups bigger than 10 please contact us</h4>
         </div>
     )
 }
